@@ -1,2 +1,3 @@
-# doctrinal-nlp
-Determining whether text is doctrinally consistent given examples of doctrinal text (e.g. scriptures).
+# bible-recommender
+Recommend verses of the Bible based on a given text/writing.
+Master's thesis of Josh Mathias.
