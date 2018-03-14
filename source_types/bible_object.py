@@ -1,7 +1,8 @@
 import pygtrie
 from cleanup.preprocessing import tokenizeTuple
 import os
-import recommendations_source
+from source_types.recommendations_source import RecommendationsSource
+
 
 class Verse:
     def __init__(self, text, bookI, chapter, verse, index=-1):
@@ -41,7 +42,8 @@ def containsAlpha(text):
 
 
 class Bible(RecommendationsSource):
-    def __init__(self, filename="", numWordMatch=4):
+    def __init__(self, filename=""):
+        super()
         self.filename = filename
         if not len(self.filename):
             self.filename = os.path.join(os.path.dirname(os.path.realpath(__file__)),"data","kjvdat.txt")
@@ -49,7 +51,7 @@ class Bible(RecommendationsSource):
         self.chapters = []
         self.verses = []
         self.trie = None
-        self.parseBible(numWordMatch)
+        # self.parseBible(numWordMatch)
 
     def referenceToVerse(self, bookI, chapter, verse):
         return (bookI+1) * (chapter+1) * (verse+1)
@@ -67,8 +69,6 @@ class Bible(RecommendationsSource):
                         self.trie[phrase] = [verse]
                     else:
                         self.trie[phrase].append(verse)
-
-
 
     # numWordMatch is the minimum sequence of words for which verse references are saved in the trie. If 0, no trie is initialized.
     def parseBible(self, numWordMatch=4):

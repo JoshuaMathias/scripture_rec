@@ -1,33 +1,31 @@
-17
-47091
-47192
-47707
-6720
-45006
-35554
-35470
-44896
-44907
-45005
-46244
+47091 - History of the Church of Jesus Christ of Latter-day Saints - Volume I - Footnotes sections for each chapter with scripture references. Has topical index at end.
+47192 - History of the Church of Jesus Christ of Latter-day Saints - Volume II
+47707 - History of the Church of Jesus Christ of Latter-day Saints - Volume III
+45006 - GENERAL SMITH'S VIEWS OF THE POWERS AND POLICY OF THE GOVERNMENT OF THE UNITED STATES
+35554 - Commentary with direct quotes. In-line references, e.g. ." 2 Peter i, 20.   6th chapter of Joshua, 26th verse    21st chapter, 2 Chron. Gen. xli, 29-31 words of Daniel, chapter vii, 21    See Isaiah, xiii, 19-22 Acts xxi, 10, 11    the first five verses of the third chapter of 2 Timothy sixteenth chapter of Jeremiah, fourteenth,
+fifteenth and sixteenth verses  Jeremiah exclaims, in the last verse of this chapter    Ezekiel xx, 33-38   the Lord say: "My ways are not as your ways, nor my thoughts as your thoughts.  John, in his eleventh chapter of Revelations    Deut., vi, from 4--9; also xi, 13--21; and Exodus, xiii, 11--16
+35470 - Key to the Science of Theology - 1 reference found at beginning of section. Possibly direct quotes.   e.g. Job    xxxiii. 14, 15, 16.
+44907 - AN INTERESTING ACCOUNT OF SEVERAL REMARKABLE VISIONS, AND OF THE LATE DISCOVERY OF ANCIENT AMERICAN RECORDS. - Some references and direct quotes.   e.g. John xii. 32   Rom. v. 28
+45005 - Absurdities of Immaterialism - Some direct quotes with references. e.g. --Deut. iv. 39 Col. iii. 10    I Cor. xv. 49
+46244 - The Kingdom of God - Table of contents with subjects. Many quotes and references. e.g.   2 Cor. iii 6    John xvi. 7
 46243
 51140
-36327
-44941
+36327 - e.g.    --Gen., 1, 31
+44941 - e.g.    Rev. iii. 21.   Contents. ------------------ Preface Chapter I. The Wisdom, Order, and Harmony of the Government of God.
 46221
 37718
 35333
-46751
+46751 - e.g. [O]    [Footnote O: James i: 5.]   [Footnote Q: Phil. ii: 1-8.]    [Footnote R: I. John iii: 2]
 50536
 46536
 45303
 45464
 35556
-35360
+35360 - e.g.    Psalms 82: 1.
 35974
 42152
-46202
-47316
+46202 -    [7]  Footnotes   1. p. 245.  36. 1 Cor. i. 13.   37. _Ibid_ verse 10.    11. Acts ii: 41. Acts viii: 12, 35--40. 1. Matt, xxviii: 19, 20.
+47316 -     52. Gen. 30:8.
 47730
 52819
 49526
@@ -38,9 +36,9 @@
 35514
 42238
 45149
-46099
+46099 -   Mai. 4:5-6  Eccles. 11:3.   
 47182
-35562
+35562 - Scripture references by topic/chapter. e.g.     CHAPTER 36. THE LAW OF THE EARTH.   REFERENCES. CHAPTERS 1 AND 2 (no bible references)    CHAPTER 3 **Bible,** Job 38:4-7; Jer. 1:5; John 9:2; 17:5; Heb. 12:9; Rom.  6:23.
 34362
 45054
 50535
@@ -95,7 +93,7 @@
 46974
 9661
 51730
-49357
+49357 - All footnotes at end.    Footnotes     [12] 1 Corinthians 15:44.    [45] I Cor. 13:13.  [46] Matt. 22:35-39.
 54337
 51095
 50029

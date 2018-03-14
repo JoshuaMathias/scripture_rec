@@ -1,0 +1,14 @@
+These book ids were found to contain no helpful Bible references (upon manual investigation):
+
+gutenberg_bible_books.txt
+10 - The King James Bible
+20 - Paradise Lost, by John Milton - poems about the Bible, but no references
+8525 - Eve’s Diary, Complete, by Mark Twain (Samuel Clemens)
+8300 - THE HOLY BIBLE
+124 - Apocrypha
+
+gutenberg_mormon_books.txt
+17 - The Book of Mormon - The text itself doesn't contain Bible references
+6720 - The Wentworth Letter by Joseph Smith, Jun. - No footnotes or Bible references
+45006 - GENERAL SMITH'S VIEWS OF THE POWERS AND POLICY OF THE GOVERNMENT OF THE UNITED STATES - No apparent references
+44896 - THE AUTOBIOGRAPHY OF PARLEY PARKER PRATT - Some commentary and quotes on Bible passages. No apparent references
