@@ -9,7 +9,8 @@ class ReferenceFinder:
         self.passages = []
         self.references = {}
 
-    def addDocument(self, doc_path):
+    def writeDocumentRefs(self, doc_path, doc_out_path):
+        ref_writer = open(doc_out_path, 'w')
         with open(doc_path, 'r') as file:
             file_lines = strip_headers(file.read()).split("\n")
             lineI = 0
@@ -32,16 +33,14 @@ class ReferenceFinder:
                 lineI += 1
             while lineI < len(file_lines):
                 line = file_lines[lineI].strip().lower()
-                refFinder.addPassage(line, lineI)
+                self.addPassage(line, lineI)
+
 
     # Creates and stores a Passage object, with any references found in the text.
     def addPassage(self, text, lineI):
         references = []
         tokens, textStr = preprocessing.tokenizeTuple(text)
         newPassage = Passage(textStr, lineI)
-
-    def writePassageReferences(self, ):
-
 
 
 class Passage:
@@ -76,30 +75,7 @@ def main():
         passages = [] # Selected passages
         footnotes = [] # Indexed footnotes of references, corresponding to a passage.
         filepath = os.path.join(args.writings_dir, filename)
-        print("file to index: "+filepath)
-        with open(filepath, 'r') as file:
-            file_lines = strip_headers(file.read()).split("\n")
-            lineI = 0
-            line = ""
-            while lineI < len(file_lines): # Skip table of contents
-                line = file_lines[lineI].strip()
-                if line.startswith("Index") or line.startswith("INDEX"): # Table of contents ends with index
-                    break
-                lineI += 1
-
-            sectionName = ""
-            while lineI < len(file_lines): # Go to the start of the first section
-                line = file_lines[lineI].strip().lower()
-                if line.startswith("chapter"):
-                    sectionName = "chapter"
-                    break
-                elif line.startswith("lecture"):
-                    sectionName = "lecture"
-                    break
-                lineI += 1
-            while lineI < len(file_lines):
-                line = file_lines[lineI].strip().lower()
-                refFinder.addPassage(line, lineI)
+        refFinder.addDocument(filepath)
 
 if __name__== "__main__":
     main()
