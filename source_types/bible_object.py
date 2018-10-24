@@ -42,7 +42,7 @@ def containsAlpha(text):
 
 
 class Bible(RecommendationsSource):
-    def __init__(self, filename=""):
+    def __init__(self, filename="", numWordMatch=0):
         super()
         self.filename = filename
         if not len(self.filename):
@@ -51,7 +51,7 @@ class Bible(RecommendationsSource):
         self.chapters = []
         self.verses = []
         self.trie = None
-        # self.parseBible(numWordMatch)
+        self.parseBible(numWordMatch)
 
     def referenceToVerse(self, bookI, chapter, verse):
         return (bookI+1) * (chapter+1) * (verse+1)
