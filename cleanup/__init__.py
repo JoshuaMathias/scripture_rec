@@ -2,4 +2,4 @@
 # https://github.com/c-w/gutenberg
 
 
-from cleanup.strip_headers import strip_headers  # noqa
+# from cleanup.strip_headers import strip_headers  # noqa
