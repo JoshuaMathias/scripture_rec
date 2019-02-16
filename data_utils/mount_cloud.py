@@ -1,9 +1,9 @@
 import os
 import sys
-if not os.path.isdir('colab_utils'):
-  !git clone https://github.com/mixuala/colab_utils.git
-  sys.path.append('colab_utils')
-  !pip install --upgrade google-cloud-storage
+# if not os.path.isdir('colab_utils'):
+#   !git clone https://github.com/mixuala/colab_utils.git
+#   sys.path.append('colab_utils')
+#   !pip install --upgrade google-cloud-storage
 import colab_utils.gcloud
 
 # Mount Google Cloud Storage
