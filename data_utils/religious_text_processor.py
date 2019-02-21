@@ -13,7 +13,9 @@ nltk.download('punkt')
 # Class for preprocessing, preparing of text in the 
 #   religious domain; e.g. scriptures, religious speeches
 class ReligiousTextProcessor:
-  def __init__(self):
+  # If bow, do clean_bow on __call__
+  def __init__(self, bow=False):
+    self.bow = bow
     self.expand = set(['—','–','-','.','/'])
     self.stemmer = PorterStemmer()
     self.stop_words = set(stopwords.words('english'))
@@ -33,6 +35,32 @@ class ReligiousTextProcessor:
   def restart(self):
     self.clean_vocab = defaultdict(int)
     self.bow_vocab = defaultdict(int)
+
+  # Return clean text
+  # sent_tokenize, word_tokenize, lowercase, stem, remove stops
+  def clean(self, text):
+    processed_text = ""
+
+    for ch in text:
+      if ch in self.expand:
+        processed_text += " "+ch+" "
+      else:
+        processed_text += ch.lower()
+    cleaned_text = ""
+    # Put space between numbers and letters
+    processed_text = re.sub(self.wordnum_pattern, self.wordnum_replace, processed_text)
+    for sentence in sent_tokenize(processed_text):
+      for word in word_tokenize(sentence):
+        if word and word not in self.stop_words:
+          word = self.stemmer.stem(word)
+          cleaned_text += " "+word
+    return cleaned_text.strip()
+
+  def __call__(self, text):
+    text = self.clean(text)
+    if self.bow:
+      text = self.clean_bow(text)
+    return text
 
   # Return clean text and set of vocab
   # sent_tokenize, word_tokenize, lowercase, stem, remove stops
@@ -85,13 +113,17 @@ class ReligiousTextProcessor:
     end("Finished cleaning")
     return dest_clean_file+'.pkl', clean_texts
 
+  def clean_bow(self, text):
+    punc_free = re.sub(remove_pattern, ' ', text)
+    space_normed = re.sub(self.extra_space_pattern, ' ', punc_free).strip() # Only allow one contiguous space
+    return space_normed
+
   # Given clean text, clean more (for bag of words type use):
   #  Remove punctuation
   #  Only keep a-z, 0-9, : (for scripture references)
   def clean_to_bow_text(self, text):
     # punc_free = text.translate(self.punc_trans)
-    punc_free = re.sub(remove_pattern, ' ', text)
-    space_normed = re.sub(self.extra_space_pattern, ' ', punc_free).strip() # Only allow one contiguous space
+    space_normed = self.clean_bow(text)
     for word in space_normed.split():
       self.bow_vocab[word.strip()] += 1 # Remove any new lines or other spacing here
     return space_normed
