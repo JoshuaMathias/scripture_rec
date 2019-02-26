@@ -22,6 +22,8 @@ class ReligiousTextProcessor:
     self.stop_words |= set(['com', 'edu', 'org', 'net', ':'])
     self.clean_vocab = defaultdict(int)
     self.bow_vocab = defaultdict(int)
+    self.clean_vocab_indices = {}
+    self.bow_vocab_indices = {}
     self.exclude = set(string.punctuation)
     self.exclude |= set(['—','–','-'])
     # Only keep ASCII letters, number, and colons that are between other chars (scripture references)
@@ -62,6 +64,19 @@ class ReligiousTextProcessor:
       text = self.clean_bow(text)
     return text
 
+  # Given an iterable or dict where keys are vocab terms
+  #  return a map where keys are terms and values are feature indices
+  def vocab_to_indices(self, vocab):
+    terms = vocab
+    if isinstance(vocab, dict):
+      terms = vocab.keys()
+    vocab_indices = {}
+    term_i = 0
+    for term in terms:
+      vocab_indices[term] = term_i
+      term_i += 1
+    return vocab_indices
+
   # Return clean text and set of vocab
   # sent_tokenize, word_tokenize, lowercase, stem, remove stops
   def clean_text_vocab(self, text):
@@ -89,14 +104,15 @@ class ReligiousTextProcessor:
   #   dest_clean.pkl has the pickled binary file
   #   dest_clean.txt has the plain text
   # vocab_file is the basename for the vocab binary and plain text
-  def clean_texts_vocab(self, source_file, dest_clean_file=None, vocab_file=None):
+  def clean_texts_vocab(self, source_file, dest_clean_file=None, vocab_file=None, texts=None):
     start()
     vprint(source_file, 'Cleaning text at')
     if not dest_clean_file:
       dest_clean_file = add_file_suffix(source_file, 'clean')
     if not vocab_file:
       vocab_file = add_file_suffix(dest_clean_file, 'vocab')
-    texts = vload(source_file)
+    if texts is None:
+      texts = vload(source_file)
     clean_texts = []
     for text in texts:
       clean_texts.append(self.clean_text_vocab(text))
@@ -109,12 +125,14 @@ class ReligiousTextProcessor:
     vocab_file, ext = os.path.splitext(vocab_file)
     vsave(self.clean_vocab, vocab_file+'.pkl')
     vsave(self.clean_vocab, vocab_file+'.txt')
+    self.clean_vocab_indices = self.vocab_to_indices(self.clean_vocab)
+    vsave(self.clean_vocab_indices, vocab_file+'_indices.pkl')
     lprint(self.clean_vocab, 'Clean vocab')
     end("Finished cleaning")
     return dest_clean_file+'.pkl', clean_texts
 
   def clean_bow(self, text):
-    punc_free = re.sub(remove_pattern, ' ', text)
+    punc_free = re.sub(self.remove_pattern, ' ', text)
     space_normed = re.sub(self.extra_space_pattern, ' ', punc_free).strip() # Only allow one contiguous space
     return space_normed
 
@@ -131,14 +149,15 @@ class ReligiousTextProcessor:
   # Given clean text, clean more (for bag of words type use):
   #  Remove punctuation
   #  Only keep a-z, 0-9, : (for scripture references)
-  def clean_to_bow_vocab(self, source_file, dest_clean_file=None, vocab_file=None):
+  def clean_to_bow_vocab(self, source_file, dest_clean_file=None, vocab_file=None, texts=None):
     start()
     vprint(source_file, 'Bow cleaning text at')
     if not dest_clean_file:
       dest_clean_file = add_file_suffix(source_file, 'bow')
     if not vocab_file:
       vocab_file = add_file_suffix(dest_clean_file, 'vocab')
-    texts = vload(source_file)
+    if texts is None:
+      texts = vload(source_file)
     clean_texts = []
     for text in texts:
       punc_free = self.clean_to_bow_text(text)
@@ -152,6 +171,8 @@ class ReligiousTextProcessor:
     vocab_file, ext = os.path.splitext(vocab_file)
     vsave(self.bow_vocab, vocab_file+'.pkl')
     vsave(self.bow_vocab, vocab_file+'.txt')
+    self.bow_vocab_indices = self.vocab_to_indices(self.bow_vocab)
+    vsave(self.bow_vocab_indices, vocab_file+'_indices.pkl')
     lprint(self.bow_vocab, 'BOW clean vocab')
     end("Finished BOW cleaning")
     return dest_clean_file+'.pkl', clean_texts
