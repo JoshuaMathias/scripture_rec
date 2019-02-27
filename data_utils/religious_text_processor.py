@@ -40,7 +40,7 @@ class ReligiousTextProcessor:
 
   # Return clean text
   # sent_tokenize, word_tokenize, lowercase, stem, remove stops
-  def clean(self, text):
+  def clean(self, text, do_stem=True):
     processed_text = ""
 
     for ch in text:
@@ -54,9 +54,40 @@ class ReligiousTextProcessor:
     for sentence in sent_tokenize(processed_text):
       for word in word_tokenize(sentence):
         if word and word not in self.stop_words:
-          word = self.stemmer.stem(word)
+          if do_stem:
+            word = self.stemmer.stem(word)
           cleaned_text += " "+word
     return cleaned_text.strip()
+
+  def tokenize(self, text):
+    processed_text = ""
+
+    for ch in text:
+      if ch in self.expand:
+        processed_text += " "+ch+" "
+      else:
+        processed_text += ch.lower()
+    cleaned_text = ""
+    # Put space between numbers and letters
+    processed_text = re.sub(self.wordnum_pattern, self.wordnum_replace, processed_text)
+    for sentence in sent_tokenize(processed_text):
+      for word in word_tokenize(sentence):
+        cleaned_text += " "+word
+    return cleaned_text.strip().split()
+
+  # Given a list of texts, return a list of sentences represented as lists of words
+  # Also return a dict of vocab indices
+  def tokenize_vocab(self, texts):
+    vocab = {}
+    cleaned_texts = []
+    for text in texts:
+      tokens = self.tokenize(text)
+      cleaned_texts.append(tokens)
+      for token in tokens:
+        if token not in vocab:
+          vocab[token] = len(vocab)
+    lprint(vocab, 'precleaned vocab')
+    return cleaned_texts, vocab
 
   def __call__(self, text):
     text = self.clean(text)
@@ -129,6 +160,7 @@ class ReligiousTextProcessor:
     vsave(self.clean_vocab_indices, vocab_file+'_indices.pkl')
     lprint(self.clean_vocab, 'Clean vocab')
     end("Finished cleaning")
+    lprint(self.clean_vocab_indices)
     return dest_clean_file+'.pkl', clean_texts
 
   def clean_bow(self, text):
